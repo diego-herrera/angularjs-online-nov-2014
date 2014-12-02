@@ -1,0 +1,14 @@
+<nav>
+    <ul class="nav nav-tabs">
+        <!-- Si rutaEsProximamente() es true, se establece la clase 'active' en el elemento li -->
+        <li ng-class="{ 'active': rutaEsProximamente() }">
+            <a href="#/peliculas/proximamente">Próximamente</a>
+        </li>
+        <!-- Si rutaEsCartelera() es true, se establece la clase 'active' en el elemento li -->
+        <li ng-class="{ 'active': rutaEsCartelera() }">
+            <a href="#/peliculas/cartelera">En cartelera</a>
+        </li>
+    </ul>
+</nav>
+<!-- Segmento de nivel 1 -->
+<section app-view-segment="1"></section>

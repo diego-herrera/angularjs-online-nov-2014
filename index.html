@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html ng-app="misPelisSeriesApp">
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Películas y Series</title>
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/angular-route.js"></script>
+    <script src="vendor/angular-route-segment.js"></script>
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/PeliculasCtrl.js"></script>
+    <script src="scripts/controllers/SeriesCtrl.js"></script>
+    <script src="scripts/controllers/NavegacionCtrl.js"></script>
+    <script src="scripts/controllers/PeliculasProximamenteCtrl.js"></script>
+    <script src="scripts/controllers/PeliculasCarteleraCtrl.js"></script>
+    <script src="scripts/services/ApiService.js"></script>
+    <link rel="stylesheet" href="styles/bootstrap.css" />
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Películas y Series</h1>
+        </header>
+        <nav ng-controller="NavegacionCtrl">
+            <ul class="nav nav-tabs">
+                <!-- Si rutaEsPeliculas() es true, se establece la clase 'active' en el elemento li -->
+                <li ng-class="{ 'active': rutaEsPeliculas() }">
+                    <a href="#/peliculas">Películas</a>
+                </li>
+                <!-- Si rutaEsSeries() es true, se establece la clase 'active' en el elemento li -->
+                <li ng-class="{ 'active': rutaEsSeries() }">
+                    <a href="#/series">Series</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Segmento de nivel 1 -->
+        <section app-view-segment="0"></section>
+    </div>
+
+</body>
+</html>

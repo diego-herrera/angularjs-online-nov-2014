@@ -1,0 +1,10 @@
+
+<table class="table table-striped">
+    <tbody>
+        <!-- Usamos la directiva ng-repeat para iterar por cada película en la colección obtenida de la API -->
+        <tr ng-repeat="pelicula in peliculas">
+            <!-- Mostramos el título -->
+            <td>{{ pelicula.title }}</td>
+        </tr>
+    </tbody>
+</table>
