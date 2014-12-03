@@ -1,22 +1,15 @@
 
 // Controlador para la vista de próximas películas.
-angular.module("misPelisSeriesApp").controller("PeliculasProximamenteCtrl", ["$scope", "ApiService", function($scope, ApiService) {
+angular
+    .module("misPelisSeriesApp")
+    .controller("PeliculasProximamenteCtrl", ["$scope", "$filter", "Peliculas", function($scope, $filter, Peliculas) {
 
-    // Usamos el servicio 'ApiService' para obtener la colección de películas.
-    ApiService
-        .consultaApi( "movie/upcoming" )
-        .then(
-            // Si la petición a la API fue correcta, establecemos el resultado
-            // en el $scope para que la vista tenga acceso.
-            function( resultado ) {
+        // Hemos sacado la llamada a la API del controlador, puesto que no es su responsabilidad
+        // hacerla. Ahora, la colección de películas nos llega como una dependencia inyectada desde
+        // la propiedad 'resolve' del $routeSegmentProvider, en el documento app.js.
 
-                $scope.peliculas = resultado.data.results;
-            },
-            // Si algo salió mal, mostramos mensaje.
-            function() {
-
-                alert("Algo no ha ido bien.")
-            }
-        );
+        // Aquí estamos aplicando el filtro 'orderBy' para ordenar la colección
+        // de películas por la propiedad 'release_date'.
+        $scope.peliculas = $filter("orderBy")(Peliculas.data.results, "release_date");
 
 }]);

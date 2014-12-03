@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script src="vendor/angular.js"></script>
+    <script src="vendor/tmhDynamicLocale.js"></script>
+    <script src="vendor/angular-translate.js"></script>
+</head>
+<body ng-app="i18n">
+
+    <div ng-controller="LocaleController">
+        <!-- Usando el módulo angular-translate con un filtro -->
+        <h1>{{ 'tituloH1' | translate }}</h1>
+        <!-- Usando el módulo angular-translate con una directiva -->
+        <h2 translate>tituloH2</h2>
+        <!-- Usando el módulo angular-translate con un servicio (desde el controlador) -->
+        <h3>{{ ultimoTitulo }}</h3>
+        <!-- Filtro 'currency', para ver cómo aplica el locale de la aplicación -->
+        <div>Divisa: {{ divisa | currency }}</div>
+        <!-- Filtro 'date', para ver cómo aplica el locale de la aplicación -->
+        <div>Fecha: {{ fecha | date }}</div>
+        <button ng-click="intercambiarLocale()">Intercambiar Locale</button>
+    </div>
+
+<script>
+
+    // Es necesario inyectar:
+    // - 'tmh.dynamicLocale' para poder hacer cambio de locale en caliente.
+    // - 'pascalprecht.translate' para aplicar traducciones en caliente según locale.
+    angular.module("i18n", ["tmh.dynamicLocale", "pascalprecht.translate"]);
+
+    // Configuramos 'tmhDynamicLocaleProvider'. Hay que indicar con un patrón la URL de
+    // los documentos de locale de AngularJS.
+    angular.module("i18n").config(["tmhDynamicLocaleProvider", function(tmhDynamicLocaleProvider) {
+
+        tmhDynamicLocaleProvider.localeLocationPattern("vendor/angular-locale_{{ locale }}.js");
+
+    }]);
+
+    // Configuramos '$translateProvider'. Establecemos los distintos juegos de
+    // traducciones y seleccionamos uno de ellos por defecto.
+    angular.module("i18n").config(["$translateProvider", function($translateProvider) {
+
+        $translateProvider.translations("es-es", {
+            "tituloH1": "Jugando con i18n",
+            "tituloH2": "Esto es un subtítulo",
+            "tituloH3": "Y esto otro más..."
+        });
+
+        $translateProvider.translations("en-us", {
+            "tituloH1": "Playing with i18n",
+            "tituloH2": "This is a subtitle",
+            "tituloH3": "And this is another one..."
+        });
+
+        $translateProvider.preferredLanguage("es-es");
+
+    }]);
+
+    // Inyectamos 'tmhDynamicLocale' y '$translate' para poder hacer
+    // cambio de locale y juego de traducciones en caliente.
+    angular
+        .module("i18n")
+        .controller("LocaleController", ["$scope", "tmhDynamicLocale", "$translate", function($scope, tmhDynamicLocale, $translate) {
+
+                // Establecemos un locale por defecto.
+                var locale = "es-es";
+
+                // Le decimos al módulo Dynamic Locale que cargue el locale correspondiente.
+                tmhDynamicLocale.set(locale);
+
+                // Recuperamos la traducción correspondiente al key 'tituloH3'. Cuando usamos
+                // Angular Translate como un servicio, el resultado de la traducción viene dado
+                // como una promesa.
+                $translate("tituloH3").then( function( traduccion ) {
+
+                    $scope.ultimoTitulo = traduccion;
+                });
+
+                // Intercambia los locales 'es-es' y 'en-us'.
+                $scope.intercambiarLocale = function() {
+
+                    locale = locale == "es-es" ? "en-us" : "es-es";
+
+                    // Cambio de documento de locale.
+                    tmhDynamicLocale.set(locale);
+
+                    // Cambio de juego de traducciones.
+                    $translate.use(locale);
+
+                    // Traemos de nuevo la traducción de 'tituloH3' puesto que no se refresca
+                    // de manera automática cuando cambia el locale. Solo usaremos las traducciones
+                    // con el servicio $translate cuando necesitemos ese literal traducido en el
+                    // controlador; si solo se necesita en la vista, lo haremos siempre con filtros
+                    // o directivas.
+                    $translate("tituloH3").then( function( traduccion ) {
+
+                        $scope.ultimoTitulo = traduccion;
+                    });
+                };
+
+                // Datos localizamos que se muestran en la vista.
+                $scope.divisa = 1234567.89;
+                $scope.fecha = new Date().getTime();
+
+        }]);
+
+</script>
+</body>
+</html>

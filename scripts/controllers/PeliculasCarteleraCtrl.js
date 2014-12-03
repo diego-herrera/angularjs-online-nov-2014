@@ -1,22 +1,13 @@
 
 // Controlador para la vista de películas en cartelera.
-angular.module("misPelisSeriesApp").controller("PeliculasCarterleraCtrl", ["$scope", "ApiService", function($scope, ApiService) {
+angular
+    .module("misPelisSeriesApp")
+    .controller("PeliculasCarterleraCtrl", ["$scope", "Peliculas", function($scope, Peliculas) {
 
-    // Usamos el servicio 'ApiService' para obtener la colección de películas.
-    ApiService
-        .consultaApi( "movie/now_playing" )
-        .then(
-            // Si la petición a la API fue correcta, establecemos el resultado
-            // en el $scope para que la vista tenga acceso.
-            function( resultado ) {
+        // Hemos sacado la llamada a la API del controlador, puesto que no es su responsabilidad
+        // hacerla. Ahora, la colección de películas nos llega como una dependencia inyectada desde
+        // la propiedad 'resolve' del $routeSegmentProvider, en el documento app.js.
 
-                $scope.peliculas = resultado.data.results;
-            },
-            // Si algo salió mal, mostramos mensaje.
-            function() {
-
-                alert("Algo no ha ido bien.")
-            }
-        );
+        $scope.peliculas = Peliculas.data.results;
 
 }]);

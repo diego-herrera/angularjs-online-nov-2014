@@ -3,20 +3,28 @@
 <head lang="en">
     <meta charset="UTF-8">
     <title>Películas y Series</title>
+    <!-- Estilos-->
+    <link rel="stylesheet" href="styles/bootstrap.css" />
+    <!-- Librerías -->
     <script src="vendor/angular.js"></script>
     <script src="vendor/angular-route.js"></script>
     <script src="vendor/angular-route-segment.js"></script>
+    <!-- Configuración de la aplicación -->
     <script src="scripts/app.js"></script>
+    <!-- Controladores -->
     <script src="scripts/controllers/PeliculasCtrl.js"></script>
     <script src="scripts/controllers/SeriesCtrl.js"></script>
     <script src="scripts/controllers/NavegacionCtrl.js"></script>
     <script src="scripts/controllers/PeliculasProximamenteCtrl.js"></script>
     <script src="scripts/controllers/PeliculasCarteleraCtrl.js"></script>
+    <!-- Servicios -->
     <script src="scripts/services/ApiService.js"></script>
-    <link rel="stylesheet" href="styles/bootstrap.css" />
+    <!-- Values -->
+    <script src="scripts/values/Configuracion.js"></script>
+    <!-- Filters -->
+    <script src="scripts/filters/FechaEstreno.js"></script>
 </head>
 <body>
-
     <div class="container">
         <header>
             <h1>Películas y Series</h1>
@@ -36,6 +44,5 @@
         <!-- Segmento de nivel 1 -->
         <section app-view-segment="0"></section>
     </div>
-
 </body>
 </html>

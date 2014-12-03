@@ -1,10 +1,15 @@
 
+<h4>En Cartelera</h4>
 <table class="table table-striped">
     <tbody>
         <!-- Usamos la directiva ng-repeat para iterar por cada película en la colección obtenida de la API -->
-        <tr ng-repeat="pelicula in peliculas">
+        <!-- Con un pipe | indicamos que queremos filtrar el dato que le precede. En este
+        caso, hacemos una ordenación ascendente de 'peliculas' por su atributo 'title' -->
+        <tr ng-repeat="pelicula in peliculas | orderBy:'title'">
             <!-- Mostramos el título -->
             <td>{{ pelicula.title }}</td>
+            <!-- Aplicamos un formato a la fecha de estreno usando el filtro 'date', que viene de serie con AngularJS -->
+            <td>{{ pelicula.release_date | date:'dd/MM/yyyy' }}</td>
         </tr>
     </tbody>
 </table>

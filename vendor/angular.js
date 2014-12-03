@@ -4804,7 +4804,7 @@ function $BrowserProvider(){
          <input ng-model="newCacheValue" placeholder="Value">
          <button ng-click="put(newCacheKey, newCacheValue)">Cache</button>
 
-         <p ng-if="keys.length">Cached Values</p>
+         <p ng-if="keys.length">Cached values</p>
          <div ng-repeat="key in keys">
            <span ng-bind="key"></span>
            <span>: </span>

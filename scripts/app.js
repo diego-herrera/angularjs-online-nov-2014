@@ -22,13 +22,33 @@ angular.module("misPelisSeriesApp").config(["$routeSegmentProvider", function($r
     // Establecemos qué controlador y qué vista hay que usar en el segmento 'peliculas.proximamente'.
     $routeSegmentProvider.within("peliculas").segment("proximamente", {
         controller: "PeliculasProximamenteCtrl",
-        templateUrl: "views/PeliculasProximamente.html"
+        templateUrl: "views/PeliculasProximamente.html",
+        resolve: {
+            // En el objeto 'resolve' establecemos todas las dependencias del controlador asociado que
+            // necesitemos resolver previamente a la instanciación del controlador. Una vez se resuelvan,
+            // el controlador se instancia y las dependencias se inyectan en él. Todas las dependecias
+            // que indiquemos en 'resolve' deben retornar una promesa.
+            Peliculas: ["ApiService", function(ApiService) {
+
+                return ApiService.consultaApi("movie/upcoming");
+            }]
+        }
     });
 
     // Establecemos qué controlador y qué vista hay que usar en el segmento 'peliculas.cartelera'.
     $routeSegmentProvider.within("peliculas").segment("cartelera", {
         controller: "PeliculasCarterleraCtrl",
-        templateUrl: "views/PeliculasCarterlera.html"
+        templateUrl: "views/PeliculasCarterlera.html",
+        resolve: {
+            // En el objeto 'resolve' establecemos todas las dependencias del controlador asociado que
+            // necesitemos resolver previamente a la instanciación del controlador. Una vez se resuelvan,
+            // el controlador se instancia y las dependencias se inyectan en él. Todas las dependecias
+            // que indiquemos en 'resolve' deben retornar una promesa.
+            Peliculas: ["ApiService", function(ApiService) {
+
+                return ApiService.consultaApi("movie/now_playing");
+            }]
+        }
     });
 
     // Establecemos qué controlador y qué vista hay que usar en el segmento 'series'.
