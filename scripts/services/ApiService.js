@@ -19,4 +19,9 @@ angular.module("misPelisSeriesApp").service("ApiService", ["$http", "configuraci
         return $http.get(url);
     };
 
+    this.obtenerRutaImagen = function( tamanyo, ruta ) {
+
+        return ruta == null ? null : configuracion.rutaImagenApi + tamanyo + ruta;
+    }
+
 }]);
