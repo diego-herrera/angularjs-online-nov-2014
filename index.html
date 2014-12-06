@@ -4,7 +4,31 @@
     <meta charset="UTF-8">
     <title>Películas y Series</title>
     <!-- Estilos-->
-    <link rel="stylesheet" href="styles/bootstrap.css" />
+    <link rel="stylesheet" href="styles/css/bootstrap.css" />
+    <link rel="stylesheet" href="styles/css/estilos.css"/>
+</head>
+<body>
+
+    <div class="container">
+        <header>
+            <h1>Películas y Series</h1>
+        </header>
+        <nav ng-controller="NavegacionCtrl">
+            <ul class="nav nav-tabs">
+                <!-- Si rutaEsPeliculas() es true, se establece la clase 'active' en el elemento li -->
+                <li ng-class="{ 'active': rutaEsPeliculas() }">
+                    <a href="#/peliculas">Películas</a>
+                </li>
+                <!-- Si rutaEsSeries() es true, se establece la clase 'active' en el elemento li -->
+                <li ng-class="{ 'active': rutaEsSeries() }">
+                    <a href="#/series">Series</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- Segmento de nivel 1 -->
+        <section app-view-segment="0"></section>
+    </div>
+
     <!-- Librerías -->
     <script src="vendor/angular.js"></script>
     <script src="vendor/angular-route.js"></script>
@@ -26,26 +50,8 @@
     <script src="scripts/filters/FechaEstreno.js"></script>
     <!-- Directivas -->
     <script src="scripts/directives/MediaItem.js"></script>
-</head>
-<body>
-    <div class="container">
-        <header>
-            <h1>Películas y Series</h1>
-        </header>
-        <nav ng-controller="NavegacionCtrl">
-            <ul class="nav nav-tabs">
-                <!-- Si rutaEsPeliculas() es true, se establece la clase 'active' en el elemento li -->
-                <li ng-class="{ 'active': rutaEsPeliculas() }">
-                    <a href="#/peliculas">Películas</a>
-                </li>
-                <!-- Si rutaEsSeries() es true, se establece la clase 'active' en el elemento li -->
-                <li ng-class="{ 'active': rutaEsSeries() }">
-                    <a href="#/series">Series</a>
-                </li>
-            </ul>
-        </nav>
-        <!-- Segmento de nivel 1 -->
-        <section app-view-segment="0"></section>
-    </div>
+    <script src="scripts/directives/Votacion.js"></script>
+    <script src="scripts/directives/Generos.js"></script>
+
 </body>
 </html>

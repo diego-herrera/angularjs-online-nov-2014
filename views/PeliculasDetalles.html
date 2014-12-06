@@ -1,5 +1,11 @@
 
 <header>
     <h4>{{ pelicula.title }}</h4>
+    <!-- Aquí hacemos uso de la directiva 'votación', pasando como 'media' la
+    votación media de la película por la cual se está iterando -->
+    <votacion media="{{ pelicula.vote_average }}"></votacion>
+    <!-- Aquí hacemos uso de la directiva 'generos', pasando como 'coleccion' la propiedad
+    que almacena la colección de géneros de la película por la cual se está iterando -->
+    <generos coleccion="pelicula.genres"></generos>
 </header>
 <img ng-src="{{ rutaImagen( pelicula.poster_path )}}" class="img-thumbnail" />
